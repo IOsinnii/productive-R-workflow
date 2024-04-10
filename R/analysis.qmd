@@ -15,7 +15,7 @@ This Quarto document serves as a practical illustration and is designed primaril
 
 ## Introduction
 
-This script makes a simple analysis of variables `bill_length_mm` and `bill_depth_mm` from popular [palmerpenguin dataset](https://allisonhorst.github.io/palmerpenguins/) in R in several steps.
+This R script is a result of an assignment and makes a simple analysis of variables `bill_length_mm` and `bill_depth_mm` from popular [palmerpenguin dataset](https://allisonhorst.github.io/palmerpenguins/) in R in several steps.
 
 ![Real source and meaning of our data](assets/culmen_depth.png){width="400"}
 
@@ -27,11 +27,11 @@ The R code is by default blended. Click on the `code` button below to show it
  getwd()
 ```
 
-All source data, functions and outputs are contained within the R project and can be reproduced.
+All source data, functions and outputs are contained within the R project and can be reproduced
 
 ## Load libraries
 
-For this data analysis we will need **3 R packages**: *tidyverse*, *hrbrthemes* and *patchwork*
+For this data analysis we will need next **R packages**: *tidyverse*, *hrbrthemes* and *patchwork*
 
 ```{r, message=F, warning=F}
 library(tidyverse) 
@@ -52,6 +52,8 @@ data <-  readRDS("./../input/clean_data.rds")
 
 ## Descriptive statistics
 
+### Summary
+
 Let's use one of generic functions to see basic statistics on all data columns
 
 ```{r}
@@ -71,16 +73,30 @@ data %>%
 
 ## Visualizations using ggplot2
 
+### Scatter plot showing bill length and bill depth correlation
+
 Plot **mean bill length** vs. **mean bill depth** for different species, 3 species combined on one graph.
 
-```{r, fig.align = "center", fig.width=7, fig.height=5, warning=FALSE, fig.cap="Relationship between bill <b>length</b> and bill <b>depth</b>. <b>All</b> data points included."}
+```{r, fig.align = "center", fig.width=7, fig.height=5, warning=FALSE, fig.cap="Relationship between bill <b>length</b> and bill <b>depth</b>. <b>All</b> data points included. It may seem that alltogether data resembles negative correlation between bill length and bill depth"}
 data %>% 
 na.omit() %>%  
 ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species, shape = species)) +     geom_point() +     
 labs(x = 'Bill Length (mm)', y = 'Bill Depth (mm)', title = 'Penguin Bill Dimensions') +     scale_shape_manual(values = c("Adelie" = 16, "Chinstrap" = 17, "Gentoo" = 18))
 ```
 
-### Another type of visualization
+### Splitting initial scatterplot
+
+Let's use *patchwork* and our previously created and loaded `scatterplot.f` function to make 3 side-by-side scatterplots for separate species.
+
+```{r, warning=FALSE, fig.height= 3, fig.width= 9, fig.cap="There is actually a positive correlation when split by species."}
+
+p1 <- scatterplot.f(data, "Adelie","red")
+p2 <- scatterplot.f(data, "Chinstrap","green")
+p3 <- scatterplot.f(data, "Gentoo","blue")
+p1 + p2 + p3
+```
+
+### Showing tabular data side-by-side
 
 It is also interesting to note that `bill length` and `bill depth` are quite different from one specie to another. This is summarized in the 2 tables below:
 
@@ -93,16 +109,4 @@ data %>%
 data %>% 
   group_by(species) %>% 
   summarize(avg_bill_depth = mean(bill_depth_mm, na.rm = TRUE))
-```
-
-### Splitting initial scatterplot
-
-Let's use *patchwork* and our previously saved function to make 3 side-by-side scatterplots for separate species.
-
-```{r, warning=FALSE, fig.height= 3, fig.width= 9, fig.cap="There is actually a positive correlation when split by species."}
-
-p1 <- scatterplot.f(data, "Adelie","red")
-p2 <- scatterplot.f(data, "Chinstrap","green")
-p3 <- scatterplot.f(data, "Gentoo","blue")
-p1 + p2 + p3
 ```

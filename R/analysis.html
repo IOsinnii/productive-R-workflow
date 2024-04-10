@@ -84,12 +84,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data"><span class="header-section-number">3</span> Load data</a></li>
   <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics"><span class="header-section-number">4</span> Descriptive statistics</a>
   <ul class="collapse">
-  <li><a href="#calculating-specific-metric" id="toc-calculating-specific-metric" class="nav-link" data-scroll-target="#calculating-specific-metric"><span class="header-section-number">4.1</span> Calculating specific metric</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">4.1</span> Summary</a></li>
+  <li><a href="#calculating-specific-metric" id="toc-calculating-specific-metric" class="nav-link" data-scroll-target="#calculating-specific-metric"><span class="header-section-number">4.2</span> Calculating specific metric</a></li>
   </ul></li>
   <li><a href="#visualizations-using-ggplot2" id="toc-visualizations-using-ggplot2" class="nav-link" data-scroll-target="#visualizations-using-ggplot2"><span class="header-section-number">5</span> Visualizations using ggplot2</a>
   <ul class="collapse">
-  <li><a href="#another-type-of-visualization" id="toc-another-type-of-visualization" class="nav-link" data-scroll-target="#another-type-of-visualization"><span class="header-section-number">5.1</span> Another type of visualization</a></li>
+  <li><a href="#scatter-plot-showing-bill-length-and-bill-depth-correlation" id="toc-scatter-plot-showing-bill-length-and-bill-depth-correlation" class="nav-link" data-scroll-target="#scatter-plot-showing-bill-length-and-bill-depth-correlation"><span class="header-section-number">5.1</span> Scatter plot showing bill length and bill depth correlation</a></li>
   <li><a href="#splitting-initial-scatterplot" id="toc-splitting-initial-scatterplot" class="nav-link" data-scroll-target="#splitting-initial-scatterplot"><span class="header-section-number">5.2</span> Splitting initial scatterplot</a></li>
+  <li><a href="#showing-tabular-data-side-by-side" id="toc-showing-tabular-data-side-by-side" class="nav-link" data-scroll-target="#showing-tabular-data-side-by-side"><span class="header-section-number">5.3</span> Showing tabular data side-by-side</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -133,7 +135,7 @@ Note
 </div>
 <section id="introduction" class="level2 page-columns page-full" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">1</span> Introduction</h2>
-<p>This script makes a simple analysis of variables <code>bill_length_mm</code> and <code>bill_depth_mm</code> from popular <a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguin dataset</a> in R in several steps.</p>
+<p>This R script is a result of an assignment and makes a simple analysis of variables <code>bill_length_mm</code> and <code>bill_depth_mm</code> from popular <a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguin dataset</a> in R in several steps.</p>
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full">
 <p><img src="assets/culmen_depth.png" class="img-fluid figure-img" width="400"></p>
@@ -162,11 +164,11 @@ Tip
 <pre><code>[1] "/Users/osinnii/Documents/Github/productive-R-workflow/R"</code></pre>
 </div>
 </div>
-<p>All source data, functions and outputs are contained within the R project and can be reproduced.</p>
+<p>All source data, functions and outputs are contained within the R project and can be reproduced</p>
 </section>
 <section id="load-libraries" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="load-libraries"><span class="header-section-number">2</span> Load libraries</h2>
-<p>For this data analysis we will need <strong>3 R packages</strong>: <em>tidyverse</em>, <em>hrbrthemes</em> and <em>patchwork</em></p>
+<p>For this data analysis we will need next <strong>R packages</strong>: <em>tidyverse</em>, <em>hrbrthemes</em> and <em>patchwork</em></p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -191,6 +193,8 @@ Tip
 </section>
 <section id="descriptive-statistics" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="descriptive-statistics"><span class="header-section-number">4</span> Descriptive statistics</h2>
+<section id="summary" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="summary"><span class="header-section-number">4.1</span> Summary</h3>
 <p>Let’s use one of generic functions to see basic statistics on all data columns</p>
 <div class="cell">
 <details>
@@ -224,8 +228,9 @@ Tip
                </code></pre>
 </div>
 </div>
-<section id="calculating-specific-metric" class="level3" data-number="4.1">
-<h3 data-number="4.1" class="anchored" data-anchor-id="calculating-specific-metric"><span class="header-section-number">4.1</span> Calculating specific metric</h3>
+</section>
+<section id="calculating-specific-metric" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="calculating-specific-metric"><span class="header-section-number">4.2</span> Calculating specific metric</h3>
 <p><strong>Mean bill length</strong> for Adelie specie on different islands using dplyr</p>
 <div class="cell">
 <details>
@@ -248,6 +253,8 @@ Tip
 </section>
 <section id="visualizations-using-ggplot2" class="level2 page-columns page-full" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="visualizations-using-ggplot2"><span class="header-section-number">5</span> Visualizations using ggplot2</h2>
+<section id="scatter-plot-showing-bill-length-and-bill-depth-correlation" class="level3 page-columns page-full" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="scatter-plot-showing-bill-length-and-bill-depth-correlation"><span class="header-section-number">5.1</span> Scatter plot showing bill length and bill depth correlation</h3>
 <p>Plot <strong>mean bill length</strong> vs.&nbsp;<strong>mean bill depth</strong> for different species, 3 species combined on one graph.</p>
 <div class="cell page-columns page-full" data-layout-align="center">
 <details>
@@ -261,23 +268,45 @@ Tip
 <div class="quarto-figure quarto-figure-center page-columns page-full">
 <figure class="figure page-columns page-full">
 <p><img src="analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption margin-caption">Relationship between bill <b>length</b> and bill <b>depth</b>. <b>All</b> data points included.</figcaption>
+<figcaption class="figure-caption margin-caption">Relationship between bill <b>length</b> and bill <b>depth</b>. <b>All</b> data points included. It may seem that alltogether data resembles negative correlation between bill length and bill depth</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<section id="another-type-of-visualization" class="level3" data-number="5.1">
-<h3 data-number="5.1" class="anchored" data-anchor-id="another-type-of-visualization"><span class="header-section-number">5.1</span> Another type of visualization</h3>
+</section>
+<section id="splitting-initial-scatterplot" class="level3 page-columns page-full" data-number="5.2">
+<h3 data-number="5.2" class="anchored" data-anchor-id="splitting-initial-scatterplot"><span class="header-section-number">5.2</span> Splitting initial scatterplot</h3>
+<p>Let’s use <em>patchwork</em> and our previously created and loaded <code>scatterplot.f</code> function to make 3 side-by-side scatterplots for separate species.</p>
+<div class="cell page-columns page-full">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">scatterplot.f</span>(data, <span class="st">"Adelie"</span>,<span class="st">"red"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">scatterplot.f</span>(data, <span class="st">"Chinstrap"</span>,<span class="st">"green"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">scatterplot.f</span>(data, <span class="st">"Gentoo"</span>,<span class="st">"blue"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div class="quarto-figure quarto-figure-center page-columns page-full">
+<figure class="figure page-columns page-full">
+<p><img src="analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="864"></p>
+<figcaption class="figure-caption margin-caption">There is actually a positive correlation when split by species.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="showing-tabular-data-side-by-side" class="level3" data-number="5.3">
+<h3 data-number="5.3" class="anchored" data-anchor-id="showing-tabular-data-side-by-side"><span class="header-section-number">5.3</span> Showing tabular data side-by-side</h3>
 <p>It is also interesting to note that <code>bill length</code> and <code>bill depth</code> are quite different from one specie to another. This is summarized in the 2 tables below:</p>
 <div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_bill_length =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_bill_depth =</span> <span class="fu">mean</span>(bill_depth_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_bill_length =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg_bill_depth =</span> <span class="fu">mean</span>(bill_depth_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
@@ -300,28 +329,6 @@ Tip
 </div>
 </div>
 </div>
-</section>
-<section id="splitting-initial-scatterplot" class="level3 page-columns page-full" data-number="5.2">
-<h3 data-number="5.2" class="anchored" data-anchor-id="splitting-initial-scatterplot"><span class="header-section-number">5.2</span> Splitting initial scatterplot</h3>
-<p>Let’s use <em>patchwork</em> and our previously saved function to make 3 side-by-side scatterplots for separate species.</p>
-<div class="cell page-columns page-full">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">scatterplot.f</span>(data, <span class="st">"Adelie"</span>,<span class="st">"red"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">scatterplot.f</span>(data, <span class="st">"Chinstrap"</span>,<span class="st">"green"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">scatterplot.f</span>(data, <span class="st">"Gentoo"</span>,<span class="st">"blue"</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 <span class="sc">+</span> p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display page-columns page-full">
-<div class="quarto-figure quarto-figure-center page-columns page-full">
-<figure class="figure page-columns page-full">
-<p><img src="analysis_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="864"></p>
-<figcaption class="figure-caption margin-caption">There is actually a positive correlation when split by species.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Thanks for watching!</p>
 </section>
 </section>
 

@@ -14,8 +14,10 @@ scatterplot.f <- function(data, selected_species, colors) {
     labs(
       x = "Bill Length (mm)",
       y = "Bill Depth (mm)",
-      title = selected_species
+      title = selected_species,
+      scale_shape_manual(values = c("Adelie" = 16, "Chinstrap" = 17, "Gentoo" = 18))
     )
   
   return(plot)
 } 
+
