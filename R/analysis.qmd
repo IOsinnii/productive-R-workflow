@@ -1,0 +1,110 @@
+---
+title: "Penguin_Analysis"
+format: html
+code-fold: true
+editor: visual
+toc: true
+toc-location: left
+number-sections: true
+fig-cap-location: margin
+---
+
+::: {.callout-note collapse="true"}
+This Quarto document serves as a practical illustration and is designed primarily for educational purposes, so the focus is on demonstrating R tidyverse and Quarto techniques rather than on the rigor of its scientific content.
+:::
+
+## Introduction
+
+This script makes a simple analysis of variables `bill_length_mm` and `bill_depth_mm` from popular [palmerpenguin dataset](https://allisonhorst.github.io/palmerpenguins/) in R in several steps.
+
+![Real source and meaning of our data](assets/culmen_depth.png){width="400"}
+
+::: callout-tip
+The R code is by default blended. Click on the `code` button below to show it
+:::
+
+```{r}
+ getwd()
+```
+
+All source data, functions and outputs are contained within the R project and can be reproduced.
+
+## Load libraries
+
+For this data analysis we will need **3 R packages**: *tidyverse*, *hrbrthemes* and *patchwork*
+
+```{r, message=F, warning=F}
+library(tidyverse) 
+library(hrbrthemes)    # ipsum theme for ggplot2 charts
+library(patchwork)
+```
+
+## Load data
+
+Let’s load a clean data version, together with **functions** available in `functions.R`.
+
+```{r}
+# Source functions
+source(file="functions.R")
+# Read the clean dataset
+data <-  readRDS("./../input/clean_data.rds")
+```
+
+## Descriptive statistics
+
+Let's use one of generic functions to see basic statistics on all data columns
+
+```{r}
+summary(data)
+```
+
+### Calculating specific metric
+
+**Mean bill length** for Adelie specie on different islands using dplyr
+
+```{r}
+data %>%
+  filter(species == "Adelie") %>%
+  group_by(island) %>%
+    summarize(mean_bill_length = num(mean(bill_length_mm, na.rm = TRUE), digits= 2))
+```
+
+## Visualizations using ggplot2
+
+Plot **mean bill length** vs. **mean bill depth** for different species, 3 species combined on one graph.
+
+```{r, fig.align = "center", fig.width=7, fig.height=5, warning=FALSE, fig.cap="Relationship between bill <b>length</b> and bill <b>depth</b>. <b>All</b> data points included."}
+data %>% 
+na.omit() %>%  
+ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species, shape = species)) +     geom_point() +     
+labs(x = 'Bill Length (mm)', y = 'Bill Depth (mm)', title = 'Penguin Bill Dimensions') +     scale_shape_manual(values = c("Adelie" = 16, "Chinstrap" = 17, "Gentoo" = 18))
+```
+
+### Another type of visualization
+
+It is also interesting to note that `bill length` and `bill depth` are quite different from one specie to another. This is summarized in the 2 tables below:
+
+```{r}
+#| layout-ncol: 2
+data %>% 
+  group_by(species) %>% 
+  summarize(avg_bill_length = mean(bill_length_mm, na.rm = TRUE))
+
+data %>% 
+  group_by(species) %>% 
+  summarize(avg_bill_depth = mean(bill_depth_mm, na.rm = TRUE))
+```
+
+### Splitting initial scatterplot
+
+Let's use *patchwork* and our previously saved function to make 3 side-by-side scatterplots for separate species.
+
+```{r, warning=FALSE, fig.height= 3, fig.width= 9, fig.cap="There is actually a positive correlation when split by species."}
+
+p1 <- scatterplot.f(data, "Adelie","#6689c6")
+p2 <- scatterplot.f(data, "Chinstrap","#e85252")
+p3 <- scatterplot.f(data, "Gentoo","#9a6fb0")
+p1 + p2 + p3
+```
+
+Thanks for watching!
