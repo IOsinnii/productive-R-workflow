@@ -101,9 +101,9 @@ Let's use *patchwork* and our previously saved function to make 3 side-by-side s
 
 ```{r, warning=FALSE, fig.height= 3, fig.width= 9, fig.cap="There is actually a positive correlation when split by species."}
 
-p1 <- scatterplot.f(data, "Adelie","#6689c6")
-p2 <- scatterplot.f(data, "Chinstrap","#e85252")
-p3 <- scatterplot.f(data, "Gentoo","#9a6fb0")
+p1 <- scatterplot.f(data, "Adelie","red")
+p2 <- scatterplot.f(data, "Chinstrap","green")
+p3 <- scatterplot.f(data, "Gentoo","blue")
 p1 + p2 + p3
 ```
 
