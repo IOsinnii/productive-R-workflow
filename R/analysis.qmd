@@ -106,5 +106,3 @@ p2 <- scatterplot.f(data, "Chinstrap","green")
 p3 <- scatterplot.f(data, "Gentoo","blue")
 p1 + p2 + p3
 ```
-
-Thanks for watching!
