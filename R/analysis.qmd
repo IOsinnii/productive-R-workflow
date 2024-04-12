@@ -47,7 +47,7 @@ library(plotly)
 ```
 
 ::: callout-tip
-The R code is by default blended. Click on the `code` button below to show it
+The R code is by default blended. Click on the `code` button above to show it
 :::
 
 ## Load data
@@ -103,6 +103,7 @@ labs(x = 'Bill Length (mm)', y = 'Bill Depth (mm)', title = 'Penguin Bill Dimens
                                 "Gentoo" = "#056e75"))
 p0 <- ggplotly(p0)
 p0
+
 ```
 
 ### Splitting initial scatterplot
