@@ -1,5 +1,10 @@
 ---
-title: "Penguin_Analysis"
+title: "Palmer Penguin data analysis"
+subtitle: "productive R workflow course assignment" 
+title-block-banner: "#f0f3f5"
+title-block-banner-color: "black"
+author: "Ivan Osinnii"
+date: "10 April 2024"
 format: html
 code-fold: true
 editor: visual
@@ -7,8 +12,16 @@ toc: true
 toc-location: left
 number-sections: true
 fig-cap-location: margin
+css: style.css
 ---
 
+```{=html}
+<style>
+figcaption {
+    text-align: center;
+}
+</style>
+```
 ::: {.callout-note collapse="true"}
 This Quarto document serves as a practical illustration and is designed primarily for educational purposes, so the focus is on demonstrating R tidyverse and Quarto techniques rather than on the rigor of its scientific content.
 :::
@@ -19,29 +32,28 @@ This R script is a result of an assignment and makes a simple analysis of variab
 
 ![Real source and meaning of our data](assets/culmen_depth.png){width="400"}
 
-::: callout-tip
-The R code is by default blended. Click on the `code` button below to show it
-:::
-
-```{r}
- getwd()
-```
-
-All source data, functions and outputs are contained within the R project and can be reproduced
 
 ## Load libraries
 
-For this data analysis we will need next **R packages**: *tidyverse*, *hrbrthemes* and *patchwork*
+For this data analysis we will need next **R packages**: *tidyverse*, *hrbrthemes*, *patchwork*, *DT*, *knitr* and *plotly*
 
 ```{r, message=F, warning=F}
 library(tidyverse) 
 library(hrbrthemes)    # ipsum theme for ggplot2 charts
 library(patchwork)
+library(DT)
+library(knitr)
+library(plotly)
 ```
+
+::: callout-tip
+The R code is by default blended. Click on the `code` button below to show it
+:::
 
 ## Load data
 
 Let’s load a clean data version, together with **functions** available in `functions.R`.
+
 
 ```{r}
 # Source functions
@@ -49,6 +61,8 @@ source(file="functions.R")
 # Read the clean dataset
 data <-  readRDS("./../input/clean_data.rds")
 ```
+
+All source data, functions and outputs are contained within the R project and can be reproduced
 
 ## Descriptive statistics
 
@@ -65,23 +79,30 @@ summary(data)
 **Mean bill length** for Adelie specie on different islands using dplyr
 
 ```{r}
-data %>%
+mean_bill_length <- data %>%
   filter(species == "Adelie") %>%
   group_by(island) %>%
     summarize(mean_bill_length = num(mean(bill_length_mm, na.rm = TRUE), digits= 2))
+kable(mean_bill_length)
+
 ```
 
-## Visualizations using ggplot2
+## Visualizations using ggplot2 and Plotly
 
 ### Scatter plot showing bill length and bill depth correlation
 
 Plot **mean bill length** vs. **mean bill depth** for different species, 3 species combined on one graph.
 
 ```{r, fig.align = "center", fig.width=7, fig.height=5, warning=FALSE, fig.cap="Relationship between bill <b>length</b> and bill <b>depth</b>. <b>All</b> data points included. It may seem that alltogether data resembles negative correlation between bill length and bill depth"}
-data %>% 
+p0 <- data %>% 
 na.omit() %>%  
 ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species, shape = species)) +     geom_point() +     
-labs(x = 'Bill Length (mm)', y = 'Bill Depth (mm)', title = 'Penguin Bill Dimensions') +     scale_shape_manual(values = c("Adelie" = 16, "Chinstrap" = 17, "Gentoo" = 18))
+labs(x = 'Bill Length (mm)', y = 'Bill Depth (mm)', title = 'Penguin Bill Dimensions') +     
+  scale_shape_manual(values = c("Adelie" = 16, "Chinstrap" = 17, "Gentoo" = 18)) + scale_color_manual(values = c("Adelie" = "#ff8100",
+                                "Chinstrap" = "#c25ecb",
+                                "Gentoo" = "#056e75"))
+p0 <- ggplotly(p0)
+p0
 ```
 
 ### Splitting initial scatterplot
@@ -90,23 +111,52 @@ Let's use *patchwork* and our previously created and loaded `scatterplot.f` func
 
 ```{r, warning=FALSE, fig.height= 3, fig.width= 9, fig.cap="There is actually a positive correlation when split by species."}
 
-p1 <- scatterplot.f(data, "Adelie","red")
-p2 <- scatterplot.f(data, "Chinstrap","green")
-p3 <- scatterplot.f(data, "Gentoo","blue")
+p1 <- scatterplot.f(data, "Adelie","#ff8100")
+p2 <- scatterplot.f(data, "Chinstrap","#c25ecb")
+p3 <- scatterplot.f(data, "Gentoo","#056e75")
 p1 + p2 + p3
 ```
 
+***
+Additionally we can use some advanced Quarto design features to display each of these plots in a separate tab
+
+
+::: {.panel-tabset .nav-pills}
+## 1: Adelie
+```{r}
+p1
+````
+## 2: Chinstrap
+```{r}
+p2
+````
+## 3: Gentoo
+```{r}
+p3
+```
+:::
+  
 ### Showing tabular data side-by-side
 
 It is also interesting to note that `bill length` and `bill depth` are quite different from one specie to another. This is summarized in the 2 tables below:
-
-```{r}
+````{r}
 #| layout-ncol: 2
-data %>% 
+avg_bill_length <-  data %>% 
   group_by(species) %>% 
   summarize(avg_bill_length = mean(bill_length_mm, na.rm = TRUE))
 
-data %>% 
+avg_bill_depth <- data %>% 
   group_by(species) %>% 
   summarize(avg_bill_depth = mean(bill_depth_mm, na.rm = TRUE))
+
+kable(avg_bill_length)
+kable(avg_bill_depth)
 ```
+
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" >Session Information</button><div id="collapseOne" class="accordion-collapse collapse"><div>
+
+```{r}
+sessionInfo()
+```
+
+</div></div>
