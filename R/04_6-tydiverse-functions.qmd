@@ -1,0 +1,73 @@
+---
+title: "6_tidyverse_functions"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## count() function
+
+```{r}
+library(tidyverse)
+
+penguins <- palmerpenguins::penguins
+penguins %>% 
+  count(species, island, sort = TRUE)    
+```
+
+## select() function
+
+```{r}
+penguins %>% 
+  select(-flipper_length_mm)
+
+penguins %>% 
+  select(bill_length_mm:body_mass_g)
+```
+
+## filter()
+
+```{r}
+penguins %>% 
+  filter(bill_length_mm > 55)
+
+
+penguins %>% 
+  filter(between(bill_length_mm(55,58)))
+```
+
+## mutate()
+
+```{r}
+penguins %>% 
+  mutate(bill_length_mm = scale(bill_length_mm)[,1],
+         new = 1,
+         new = new + 1
+         ) %>% 
+  select(bill_length_mm, new)
+```
+
+## summarize()
+
+```{r}
+penguins %>% 
+  summarise(
+    median_bill_length = median(bill_length_mm, na.rm = TRUE),
+    mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE),
+    .by = species
+  )
+```
+
+## arrange()
+
+```{r}
+penguins %>% 
+  summarise(
+    mean_bill_length = mean(bill_length_mm, na.rm = TRUE),
+    mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE),
+    .by = species
+  ) %>% 
+  arrange(desc(mean_bill_length)) 
+  
+```

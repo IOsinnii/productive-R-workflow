@@ -13,6 +13,8 @@ toc-location: left
 number-sections: true
 fig-cap-location: margin
 css: style.css
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{=html}
@@ -35,7 +37,7 @@ This R script is a result of an assignment and makes a simple analysis of variab
 
 ## Load libraries
 
-For this data analysis we will need next **R packages**: *tidyverse*, *hrbrthemes*, *patchwork*, *DT*, *knitr* and *plotly*
+For this data analysis we will need next **R packages**: *tidyverse*, *hrbr                   s*, *patchwork*, *DT*, *knitr* and *plotly*
 
 ```{r, message=F, warning=F}
 library(tidyverse) 
@@ -126,11 +128,11 @@ Additionally we can use some advanced Quarto design features to display each of 
 ## 1: Adelie
 ```{r}
 p1
-````
+```
 ## 2: Chinstrap
 ```{r}
 p2
-````
+```
 ## 3: Gentoo
 ```{r}
 p3
@@ -140,7 +142,7 @@ p3
 ### Showing tabular data side-by-side
 
 It is also interesting to note that `bill length` and `bill depth` are quite different from one specie to another. This is summarized in the 2 tables below:
-````{r}
+```{r}
 #| layout-ncol: 2
 avg_bill_length <-  data %>% 
   group_by(species) %>% 
@@ -153,6 +155,14 @@ avg_bill_depth <- data %>%
 kable(avg_bill_length)
 kable(avg_bill_depth)
 ```
+
+Some text in your quarto doc.
+
+```{r}
+avg_height <- (4 + 4 + 7) / 3
+```
+
+The avg is `r avg_height`
 
 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" >Session Information</button><div id="collapseOne" class="accordion-collapse collapse"><div>
 

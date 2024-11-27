@@ -1,10 +1,11 @@
-getwd(
-)
+getwd()
+library(tidyverse)
+library(readxl)
 
-read_xlsx("./input/data.xlsx")
+data <- read_xlsx("./input/data.xlsx", na = 'NA', sheet = 2)
 
 
-clean_data <- data |>
+clean_data <- data %>% 
   slice(-c(23, 48))
 
 saveRDS(clean_data, file= "input/clean_data.rds")
